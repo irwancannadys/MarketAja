@@ -8,6 +8,8 @@ class AndroidPlatform : Platform {
 
 actual fun getPlatform(): Platform = AndroidPlatform()
 
-actual fun getStatus() {
+actual fun exitApp() {
+    val context = AppContextProvider.getContext()
 
+    (context as MainActivity).finish()
 }

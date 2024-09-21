@@ -8,7 +8,4 @@ interface Platform {
 
 expect fun getPlatform(): Platform
 
-expect fun getStatus()
-//
-//@Composable
-//expect fun OnBackPress(enable: Boolean, block: () -> Unit)
+expect fun exitApp()

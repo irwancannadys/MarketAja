@@ -1,6 +1,7 @@
 package org.example.marketaja.home.section_head
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.example.marketaja.navigation.LocalAppNavigator
 
 
 @Composable
@@ -76,11 +78,14 @@ fun HomeAddressUserComponent() {
 
 @Composable
 fun HomeNotificationComponent() {
+    val appNavigator = LocalAppNavigator.current
     Box(
         modifier = Modifier.background(
             color = Color.White,
             shape = CircleShape
-        )
+        ).clickable {
+            appNavigator.navigateToFavorite()
+        }
     ) {
         Icon(
             modifier = Modifier.padding(

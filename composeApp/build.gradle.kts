@@ -7,27 +7,41 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinSerializer)
+    alias(libs.plugins.nativeCocoaPod)
+    alias(libs.plugins.kotlinAndroidParcelize)
 }
 
 kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
+            freeCompilerArgs.addAll(
+                "-P",
+                "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=org.example.marketaja.Parcelize"
+            )
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
+    )
+
+    cocoapods {
+        summary = "Deskripsi app lu"
+        homepage = "https://example.com"
+        version = "1.0.0"
+        ios.deploymentTarget = "14.0"
+        framework {
             baseName = "ComposeApp"
-            isStatic = true
         }
+        podfile = project.file("../iosApp/Podfile")
     }
-    
+
+
     sourceSets {
         
         androidMain.dependencies {
@@ -38,11 +52,16 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+
+            implementation(libs.circuit.foundation)
+            implementation(libs.circuitx.gesture.navigation)
+            implementation(libs.circuit.runtime)
         }
     }
 }
@@ -73,8 +92,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true

@@ -7,7 +7,5 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+actual fun exitApp() {}
 
-actual fun getStatus() {
-
-}
