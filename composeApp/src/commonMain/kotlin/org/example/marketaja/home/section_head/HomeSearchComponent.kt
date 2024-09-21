@@ -12,7 +12,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,22 +25,25 @@ fun HomeSearchComponent() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(
+                Color.White,
+                shape = RoundedCornerShape(bottomEnd = 14.dp, bottomStart = 14.dp)
+            )
     ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(start = 16.dp, end = 16.dp, bottom = 18.dp, top = 10.dp),
             shape = RoundedCornerShape(8.dp),
-            backgroundColor = Color.LightGray
+            backgroundColor = Color(0xFFebf5f4),
+            elevation = 0.dp
         ) {
             Row(
-                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     modifier = Modifier.padding(
-                        10.dp
+                        12.dp
                     ),
                     imageVector = Icons.Rounded.Search,
                     contentDescription = null,

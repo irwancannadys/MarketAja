@@ -18,7 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -26,7 +30,7 @@ fun HomeToolbarComponent() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -40,7 +44,7 @@ fun HomeToolbarComponent() {
 private fun HomeDiscountComponent() {
     Box(
         modifier = Modifier.background(
-            color = Color.Green,
+            color = Color(0xFFebf5f4),
             shape = CircleShape
         )
     ) {
@@ -56,9 +60,17 @@ private fun HomeDiscountComponent() {
 
 @Composable
 fun HomeAddressUserComponent() {
-    Column {
-        Text("Delivery Address")
-        Text("Jl Pamulang Permai")
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Delivery Address", style = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Light,
+            fontStyle = FontStyle.Normal
+        ))
+        Text("Jl Pamulang Permai", style = TextStyle(
+            fontSize = 16.sp,
+        ))
     }
 }
 
@@ -66,7 +78,7 @@ fun HomeAddressUserComponent() {
 fun HomeNotificationComponent() {
     Box(
         modifier = Modifier.background(
-            color = Color.Green,
+            color = Color.White,
             shape = CircleShape
         )
     ) {
