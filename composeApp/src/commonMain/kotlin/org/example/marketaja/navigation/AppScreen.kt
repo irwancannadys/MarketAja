@@ -12,4 +12,10 @@ sealed class AppScreen : Screen, Parcelable {
 
     @Parcelize
     data object Favorite: AppScreen(), Parcelable
+
+    @Parcelize
+    data class ProductDetail(
+        val nameProduct: String,
+    ) : AppScreen(), Parcelable
+
 }

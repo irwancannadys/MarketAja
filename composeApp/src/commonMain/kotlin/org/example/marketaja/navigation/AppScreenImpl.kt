@@ -17,4 +17,8 @@ class AppScreenImpl(
     override fun navigateToFavorite() {
         navigator.goTo(AppScreen.Favorite)
     }
+
+    override fun navigateToProductDetail(name: String) {
+        navigator.goTo(AppScreen.ProductDetail(name))
+    }
 }

@@ -39,7 +39,7 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = false
         }
-        podfile = project.file("../iosApp/Podfile")
+//        podfile = project.file("../iosApp/Podfile")
     }
 
 
@@ -48,6 +48,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -63,6 +64,15 @@ kotlin {
             implementation(libs.circuit.foundation)
             implementation(libs.circuitx.gesture.navigation)
             implementation(libs.circuit.runtime)
+
+
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }

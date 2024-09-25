@@ -7,8 +7,10 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun DetailProductScreen(modifier: Modifier = Modifier) {
+fun DetailProductScreen(
+    productName: String
+) {
     Scaffold {
-        Text("Product Screen")
+        Text("Product name =  $productName")
     }
 }

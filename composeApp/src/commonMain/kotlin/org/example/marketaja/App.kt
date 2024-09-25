@@ -14,6 +14,7 @@ import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
+import org.example.marketaja.detail_product.DetailProductScreen
 import org.example.marketaja.favorite.FavoriteScreen
 import org.example.marketaja.home.HomeScreen
 import org.example.marketaja.navigation.AppScreen
@@ -52,6 +53,7 @@ fun App(
                         when (screen) {
                             is AppScreen.Home -> HomeScreen()
                             is AppScreen.Favorite -> FavoriteScreen()
+                            is AppScreen.ProductDetail -> DetailProductScreen(screen.nameProduct)
                             else -> Text("Route: ${screen::class.simpleName} not found!")
                         }
                     }
