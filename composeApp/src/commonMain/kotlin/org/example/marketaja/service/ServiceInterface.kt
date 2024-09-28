@@ -1,12 +1,14 @@
 package org.example.marketaja.service
 
-import io.ktor.client.call.body
-import io.ktor.client.request.get
-
-class ServiceInterface : KtorService() {
-
-    suspend fun getData() : Any = client.get {
-        pathUrl("admin/user")
-    }.body()
-
-}
+//class ServiceInterface : KtorService() {
+//
+//    suspend fun getData() : Any = client.get {
+//        pathUrl("admin/user")
+//    }.body()
+//
+//    suspend fun get(path: String): HttpResponse {
+//        val url = "$BASE_URL$path"
+//        return client.get(url)
+//    }
+//
+//}
