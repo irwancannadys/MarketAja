@@ -8,6 +8,9 @@ import org.example.marketaja.Parcelize
 sealed class AppScreen : Screen, Parcelable {
 
     @Parcelize
+    data object Login: AppScreen(), Parcelable
+
+    @Parcelize
     data object Home : AppScreen(), Parcelable
 
     @Parcelize

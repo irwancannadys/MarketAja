@@ -17,6 +17,7 @@ import kotlinx.coroutines.channels.consumeEach
 import org.example.marketaja.detail_product.DetailProductScreen
 import org.example.marketaja.favorite.FavoriteScreen
 import org.example.marketaja.home.HomeScreen
+import org.example.marketaja.login.LoginScreen
 import org.example.marketaja.navigation.AppScreen
 import org.example.marketaja.navigation.AppScreenImpl
 import org.example.marketaja.navigation.LocalAppNavigator
@@ -51,6 +52,7 @@ fun App(
                         LocalAppNavigator provides appNavigator
                     ) {
                         when (screen) {
+                            is AppScreen.Login -> LoginScreen()
                             is AppScreen.Home -> HomeScreen()
                             is AppScreen.Favorite -> FavoriteScreen()
                             is AppScreen.ProductDetail -> DetailProductScreen(screen.nameProduct)
