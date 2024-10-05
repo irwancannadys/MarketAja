@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         AppContextProvider.setActivity(this)
+        ModuleInstaller.install()
 
         setContent {
             BackHandler(true) {

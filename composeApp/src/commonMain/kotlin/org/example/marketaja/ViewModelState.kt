@@ -12,15 +12,13 @@ abstract class ViewModelState<STATE, ACTION>(
     private val _stateflow = MutableStateFlow(initiate)
     val state : StateFlow<STATE> get() = _stateflow
 
-    abstract fun handleAction(action: ACTION)
-
     protected fun update(block : STATE.() -> STATE){
         _stateflow.update(block)
     }
 
-    fun currentState() {
-        state.value
-    }
+    abstract fun sendAction(action: ACTION)
+
+    fun currentState() = _stateflow.value
 
     fun restartState() {
         _stateflow.update { initiate }

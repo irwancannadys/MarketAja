@@ -5,31 +5,45 @@ import kotlinx.coroutines.flow.Flow
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.isSuccess
+import io.ktor.serialization.kotlinx.json.DefaultJson
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import org.example.marketaja.data.exception.InternalException
+import org.example.marketaja.data.exception.NetworkException
 
 abstract class NetworkRepository {
 
-    inline fun <reified T> (suspend () -> HttpResponse).reduce(): Flow<NetworkAsyncState<T>> {
+    protected inline fun <reified T, U>(suspend () -> HttpResponse).reduce(
+        crossinline block: (T) -> NetworkAsyncState<U>
+    ) : Flow<NetworkAsyncState<U>> {
         return flow {
             val httpResponse = invoke()
             if (httpResponse.status.isSuccess()) {
                 val data = httpResponse.body<T>()
-                val async = NetworkAsyncState.Success(data)
-                emit(async)
+                val dataState = block.invoke(data)
+                emit(dataState)
             } else {
-                val message = httpResponse.bodyAsText()
-                val throwable = Throwable(message)
-                val async = NetworkAsyncState.Failure(throwable)
-                emit(async)
+                val message = try {
+                    val json = DefaultJson
+                        .parseToJsonElement(httpResponse.bodyAsText())
+                        .jsonObject
+                    json["message"]?.jsonPrimitive?.content
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                    httpResponse.bodyAsText()
+                }
+                val throwable = InternalException(message)
+                val state = NetworkAsyncState.Failure(throwable)
+                emit(state)
             }
         }.onStart {
             emit(NetworkAsyncState.Loading)
         }.catch {
-            val async = NetworkAsyncState.Failure(it)
-            it.printStackTrace()
-            emit(async)
+            val state = NetworkAsyncState.Failure(NetworkException(it.message))
+            emit(state)
         }
     }
 }
