@@ -1,8 +1,8 @@
 package org.example.marketaja.navigation
 
+import com.example.core.Parcelable
+import com.example.core.Parcelize
 import com.slack.circuit.runtime.screen.Screen
-import org.example.marketaja.Parcelable
-import org.example.marketaja.Parcelize
 
 @Parcelize
 sealed class AppScreen : Screen, Parcelable {

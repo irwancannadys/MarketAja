@@ -9,24 +9,15 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridItemSpanScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.LifecycleResumeEffect
-import com.slack.circuit.runtime.Navigator
 import org.example.marketaja.home.section_content.HomeContentCategoriesComponent
 import org.example.marketaja.home.section_head.HomeSearchComponent
 import org.example.marketaja.home.section_head.HomeToolbarComponent
-import org.example.marketaja.navigation.LocalAppNavigator
 import org.example.marketaja.viewModel
 
 @Composable

@@ -26,8 +26,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.core.navigation.LocalAppNavigator
 import org.example.marketaja.market_component.MarketButtonComponent
-import org.example.marketaja.navigation.LocalAppNavigator
 
 
 @Composable

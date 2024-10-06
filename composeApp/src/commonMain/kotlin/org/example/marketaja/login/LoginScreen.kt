@@ -10,13 +10,17 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.core.navigation.LocalAppNavigator
+import com.example.core.service.isLoading
+import com.example.core.service.onFailure
+import com.example.core.service.onSuccess
+import org.example.marketaja.di.sharedResultManager
 import org.example.marketaja.di.viewModel
-import org.example.marketaja.navigation.LocalAppNavigator
-import org.example.marketaja.service.NetworkAsyncState
 
 @Composable
 fun LoginScreen() {
@@ -24,15 +28,28 @@ fun LoginScreen() {
     val navigator = LocalAppNavigator.current
     val viewModel by viewModel<LoginViewModel>()
     val state by viewModel.state.collectAsState()
+    val resultManager by sharedResultManager()
 
-    when(state.asyncLogin){
-        is NetworkAsyncState.Success -> {
+//    when(state.asyncLogin){
+//        is NetworkAsyncState.Success -> {
+//            navigator.navigateToHome()
+//        }
+//        is NetworkAsyncState.Failure -> {}
+//        is NetworkAsyncState.Idle -> {}
+//        is NetworkAsyncState.Loading -> {
+//            CircularProgressIndicator()
+//        }
+//    }
+
+    state.asyncLogin.onSuccess {
+        LaunchedEffect(Unit) {
             navigator.navigateToHome()
         }
-        is NetworkAsyncState.Failure -> {}
-        is NetworkAsyncState.Idle -> {}
-        is NetworkAsyncState.Loading -> {
-            CircularProgressIndicator()
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.restartState()
         }
     }
 
@@ -61,19 +78,22 @@ fun LoginScreen() {
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = {
-                    viewModel.sendAction(LoginAction.login)
+            if (state.asyncLogin.isLoading()) {
+                CircularProgressIndicator()
+            } else {
+                Button(
+                    onClick = {
+                        viewModel.sendAction(LoginAction.login)
+                    }
+                ) {
+                    Text("Login")
                 }
-            ) {
-                Text("Login")
             }
         }
     }
 
-    DisposableEffect(Unit) {
-        onDispose {
-            viewModel.restartState()
-        }
+    state.asyncLogin.onFailure {
+        it.printStackTrace()
+        Text(text = it.message.orEmpty())
     }
 }

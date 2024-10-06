@@ -22,6 +22,7 @@ ktorClientCore = "3.0.0-beta-2"
 multiplatformSettingsNoArg = "1.1.1"
 jetbrainsKotlinJvm = "1.9.0"
 slf4jSimple = "2.0.16"
+activityKtx = "1.9.2"
 
 [libraries]
 circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = "circuitFoundation" }
@@ -52,6 +53,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettingsNoArg" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettingsNoArg" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

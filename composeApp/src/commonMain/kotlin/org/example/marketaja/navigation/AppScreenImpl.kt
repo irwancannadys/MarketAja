@@ -1,5 +1,6 @@
 package org.example.marketaja.navigation
 
+import com.example.core.navigation.AppScreenNavigator
 import com.slack.circuit.runtime.Navigator
 
 class AppScreenImpl(

@@ -1,13 +1,13 @@
 package org.example.marketaja.login
 
 import androidx.lifecycle.viewModelScope
+import com.example.core.viewmodel.ViewModelState
+import com.example.data.repository.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.example.marketaja.ViewModelState
-import org.example.marketaja.data.repository.LoginRepository
 
 class LoginViewModel(
     private val loginRepository: LoginRepository
@@ -16,16 +16,28 @@ class LoginViewModel(
     override fun sendAction(action: LoginAction) {
         when (action) {
             is LoginAction.setUsername -> {
-                handleSetUserName()
+                handleSetUserName(action.userName)
             }
-            is LoginAction.setPassword -> {}
+            is LoginAction.setPassword -> {
+                handlePassword(action.password)
+            }
             is LoginAction.login -> login()
         }
     }
 
-    private fun handleSetUserName() {
-        if (currentState().username.length <= 3) {
+    private fun handleSetUserName(username: String) {
+        update {
+            copy(
+                username = username
+            )
+        }
+    }
 
+    private fun handlePassword(password: String) {
+        update {
+            copy(
+                password = password
+            )
         }
     }
 

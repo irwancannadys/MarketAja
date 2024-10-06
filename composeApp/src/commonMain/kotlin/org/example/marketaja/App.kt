@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import com.example.core.local.ValueStoreManager
+import com.example.core.navigation.LocalAppNavigator
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -20,17 +22,14 @@ import org.example.marketaja.home.HomeScreen
 import org.example.marketaja.login.LoginScreen
 import org.example.marketaja.navigation.AppScreen
 import org.example.marketaja.navigation.AppScreenImpl
-import org.example.marketaja.navigation.LocalAppNavigator
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
 fun App(
     backPressConsumer: Channel<Unit> = Channel()
 ) {
     MaterialTheme {
         val backstack = rememberSaveableBackStack(
-            root = AppScreen.Home
+            root = AppScreen.Login
         )
 
         val navigator = rememberCircuitNavigator(backStack = backstack, onRootPop = {
@@ -45,6 +44,8 @@ fun App(
             }
         }
 
+        val valueManager =  ValueStoreManager()
+
         val circuit = remember {
             Circuit.Builder()
                 .setOnUnavailableContent { screen, modifier ->
@@ -52,7 +53,13 @@ fun App(
                         LocalAppNavigator provides appNavigator
                     ) {
                         when (screen) {
-                            is AppScreen.Login -> LoginScreen()
+                            is AppScreen.Login -> {
+                                if (valueManager.token.isNotEmpty()) {
+                                    appNavigator.navigateToHome()
+                                } else {
+                                    LoginScreen()
+                                }
+                            }
                             is AppScreen.Home -> HomeScreen()
                             is AppScreen.Favorite -> FavoriteScreen()
                             is AppScreen.ProductDetail -> DetailProductScreen(screen.nameProduct)

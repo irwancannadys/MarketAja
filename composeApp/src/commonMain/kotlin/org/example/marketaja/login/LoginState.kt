@@ -1,7 +1,7 @@
 package org.example.marketaja.login
 
 import androidx.compose.runtime.Immutable
-import org.example.marketaja.service.NetworkAsyncState
+import com.example.core.service.NetworkAsyncState
 
 @Immutable
 data class LoginState(
