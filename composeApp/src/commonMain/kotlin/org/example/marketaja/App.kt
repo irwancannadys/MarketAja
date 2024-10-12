@@ -22,6 +22,7 @@ import org.example.marketaja.home.HomeScreen
 import org.example.marketaja.login.LoginScreen
 import org.example.marketaja.navigation.AppScreen
 import org.example.marketaja.navigation.AppScreenImpl
+import org.example.marketaja.product.ProductScreen
 
 @Composable
 fun App(
@@ -44,7 +45,7 @@ fun App(
             }
         }
 
-        val valueManager =  ValueStoreManager()
+        val valueManager = ValueStoreManager()
 
         val circuit = remember {
             Circuit.Builder()
@@ -60,9 +61,17 @@ fun App(
                                     LoginScreen()
                                 }
                             }
+
                             is AppScreen.Home -> HomeScreen()
                             is AppScreen.Favorite -> FavoriteScreen()
-                            is AppScreen.ProductDetail -> DetailProductScreen(screen.nameProduct)
+                            is AppScreen.ProductList -> ProductScreen(
+                                screen.id
+                            )
+
+                            is AppScreen.ProductDetail -> DetailProductScreen(
+                                screen.nameProduct
+                            )
+
                             else -> Text("Route: ${screen::class.simpleName} not found!")
                         }
                     }

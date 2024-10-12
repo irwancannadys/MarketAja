@@ -1,13 +1,13 @@
-package org.example.marketaja
+package org.example.marketaja.home
 
 import org.example.marketaja.di.InstancesManager
 import org.example.marketaja.login.LoginViewModel
 
-object LoginModule {
+object HomeModule {
 
     fun init() = with(InstancesManager) {
         install {
-            LoginViewModel(it.get())
+            HomeViewModel(it.get())
         }
     }
 }

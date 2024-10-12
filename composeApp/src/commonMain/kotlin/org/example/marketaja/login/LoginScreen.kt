@@ -30,17 +30,6 @@ fun LoginScreen() {
     val state by viewModel.state.collectAsState()
     val resultManager by sharedResultManager()
 
-//    when(state.asyncLogin){
-//        is NetworkAsyncState.Success -> {
-//            navigator.navigateToHome()
-//        }
-//        is NetworkAsyncState.Failure -> {}
-//        is NetworkAsyncState.Idle -> {}
-//        is NetworkAsyncState.Loading -> {
-//            CircularProgressIndicator()
-//        }
-//    }
-
     state.asyncLogin.onSuccess {
         LaunchedEffect(Unit) {
             navigator.navigateToHome()

@@ -13,4 +13,10 @@ class ValueStoreManager {
         set(value) {
             settings["token"] = value
         }
+
+    var listFavorite: String
+        get() = settings["listFavorite"] ?: ""
+        set(value) {
+            settings["listFavorite"] = value
+        }
 }

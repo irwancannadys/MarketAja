@@ -27,21 +27,21 @@ fun <T> NetworkAsyncState<T>.getOrNull(): T? {
 }
 
 @Composable
-fun <T> NetworkAsyncState<T>.onLoading(content: @Composable () -> Unit) {
+fun <T> NetworkAsyncState<T>.onLoading(content: @Composable () -> Unit = {}) {
     if (this is NetworkAsyncState.Loading) content.invoke()
 }
 
 @Composable
-fun <T> NetworkAsyncState<T>.onIdle(content: @Composable () -> Unit) {
+fun <T> NetworkAsyncState<T>.onIdle(content: @Composable () -> Unit = {}) {
     if (this is NetworkAsyncState.Idle) content.invoke()
 }
 
 @Composable
-fun <T> NetworkAsyncState<T>.onSuccess(content: @Composable (T) -> Unit) {
+fun <T> NetworkAsyncState<T>.onSuccess(content: @Composable (T) -> Unit = {}) {
     if (this is NetworkAsyncState.Success) content.invoke(data)
 }
 
 @Composable
-fun <T> NetworkAsyncState<T>.onFailure(content: @Composable (Throwable) -> Unit) {
+fun <T> NetworkAsyncState<T>.onFailure(content: @Composable (Throwable) -> Unit = {}) {
     if (this is NetworkAsyncState.Failure) content.invoke(throwable)
 }

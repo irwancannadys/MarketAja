@@ -22,4 +22,8 @@ class AppScreenImpl(
     override fun navigateToProductDetail(name: String) {
         navigator.goTo(AppScreen.ProductDetail(name))
     }
+
+    override fun navigateToProductList(id: Int) {
+        navigator.goTo(AppScreen.ProductList(id))
+    }
 }

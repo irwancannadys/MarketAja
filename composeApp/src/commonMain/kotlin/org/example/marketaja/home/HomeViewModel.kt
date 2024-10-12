@@ -1,25 +1,34 @@
 package org.example.marketaja.home
 
+import androidx.lifecycle.viewModelScope
 import com.example.core.viewmodel.ViewModelState
+import com.example.data.repository.CategoryRepository
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModelState<HomeState, HomeAction>(HomeState()) {
-
-//    private val networkBuilder = NetworkBuilder()
-//    private val remoteDataSource = RepositoryImpl(networkBuilder)
+class HomeViewModel(
+    private val categoryRepository: CategoryRepository
+) : ViewModelState<HomeState, HomeAction>(HomeState()) {
 
     override fun sendAction(action: HomeAction) {
-        when (action) {
-            is HomeAction.GetUser -> {}
-            is HomeAction.GetUserFailure -> {}
+        when(action) {
+            is HomeAction.GetCategory -> getCategory()
         }
     }
 
-//    fun getUser() = viewModelScope.launch {
-//        remoteDataSource.getUser()
-//            .collectLatest { async ->
-//                update {
-//                    copy(asyncUserResponse = async)
-//                }
-//            }
-//    }
+    init {
+        sendAction(HomeAction.GetCategory)
+    }
+
+    private fun getCategory() = viewModelScope.launch {
+        categoryRepository.getCategory().stateIn(this)
+            .collectLatest {
+                update {
+                    copy(
+                        categoryResponseAsync = it
+                    )
+                }
+            }
+    }
 }

@@ -4,6 +4,7 @@ import com.example.core.local.ValueStoreManager
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
@@ -33,7 +34,7 @@ class NetworkClient(
         path: String,
         parameter: Map<String, String>? = null
     ): HttpResponse {
-        return client.post(baseUrl) {
+        return client.get(baseUrl) {
             url {
                 appendPathSegments(path)
                 parameter?.forEach {

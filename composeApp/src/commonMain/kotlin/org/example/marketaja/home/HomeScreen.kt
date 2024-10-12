@@ -18,18 +18,14 @@ import androidx.compose.ui.unit.dp
 import org.example.marketaja.home.section_content.HomeContentCategoriesComponent
 import org.example.marketaja.home.section_head.HomeSearchComponent
 import org.example.marketaja.home.section_head.HomeToolbarComponent
-import org.example.marketaja.viewModel
 
 @Composable
 fun HomeScreen() {
-
-    val viewModel by viewModel { HomeViewModel() }
 
     val cols = remember { 2 }
     val itemSpan: (LazyGridItemSpanScope) -> GridItemSpan = remember(cols) {
         { GridItemSpan(cols) }
     }
-
 
     Scaffold(
         topBar = {
@@ -58,7 +54,16 @@ fun HomeScreen() {
                 item(span = itemSpan) {
                     HomeContentCategoriesComponent()
                 }
+//                LoadContent()
+
             }
         }
     }
 }
+//
+//@Composable
+//fun LazyGridScope.LoadContent() {
+//    item(span = itemSpan) {
+//        HomeContentCategoriesComponent()
+//    }
+//}
