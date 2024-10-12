@@ -13,7 +13,7 @@ interface AppScreenNavigator {
 
     fun navigateToProductDetail(name: String)
 
-    fun navigateToProductList(id: Int)
+    fun navigateToProductList(id: Int, name: String)
 
 }
 

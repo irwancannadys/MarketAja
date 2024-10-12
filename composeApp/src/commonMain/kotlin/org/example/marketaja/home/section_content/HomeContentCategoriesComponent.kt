@@ -5,12 +5,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,11 +57,13 @@ fun HomeContentCategoriesComponent() {
             CircularProgressIndicator()
         }
 
-        onSuccess {
+        onSuccess { data ->
             LoadCategoryContent(
-                data = it,
-                onClick = {
-                    navigationService.navigateToProductList(0)
+                data = data,
+                onClick = { id, name ->
+                    navigationService.navigateToProductList(
+                        id, name
+                    )
                 }
             )
         }
@@ -69,10 +75,11 @@ fun HomeContentCategoriesComponent() {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun LoadCategoryContent(
     data: List<CategoryResponse.Data>,
-    onClick: (Int) -> Unit
+    onClick: (Int, String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth().background(
@@ -111,33 +118,31 @@ fun LoadCategoryContent(
                 )
             }
         }
-
-
-        LazyRow(
-            modifier = Modifier.fillMaxWidth(),
+        Spacer(modifier = Modifier.height(16.dp))
+        FlowRow(
+            modifier = Modifier.padding(horizontal = 14.dp),
+            maxItemsInEachRow = 4,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(data) { data ->
+            data.forEach { data ->
                 CategoriesItem(
                     item = data,
-                    onClick = {
-                        onClick.invoke(it)
+                    onClick = { id, name ->
+                        onClick.invoke(id, name)
                     }
                 )
             }
-//            itemsIndexed(data) { position, data ->
-//                CategoriesItem(data)
-//            }
         }
 
-        Spacer(modifier= Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
 fun CategoriesItem(
     item: CategoryResponse.Data,
-    onClick: (Int) -> Unit
+    onClick: (Int, String) -> Unit
 ) {
     Column {
         Box(
@@ -145,13 +150,14 @@ fun CategoriesItem(
                 color = Color(0xFFebf5f4),
                 shape = CircleShape
             ).clickable {
-                onClick.invoke(item.id ?: 0)
+                onClick.invoke(item.id ?: 0, item.name ?: "")
             }
         ) {
             Text(
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 10.dp),
                 text = item.name ?: ""
             )
         }
-        Spacer(modifier= Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }

@@ -53,6 +53,11 @@ kotlin {
 
             api(libs.multiplatform.settings)
             api(libs.multiplatform.settings.no.arg)
+
+            api(libs.coil.compose.core)
+            api(libs.coil.compose)
+            api(libs.coil.mp)
+            api(libs.coil.network.ktor)
         }
         androidMain.dependencies {
             api(libs.androidx.activity.compose)

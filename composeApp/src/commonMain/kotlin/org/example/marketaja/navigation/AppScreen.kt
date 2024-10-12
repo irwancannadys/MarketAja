@@ -18,7 +18,8 @@ sealed class AppScreen : Screen, Parcelable {
 
     @Parcelize
     data class ProductList(
-        val id: Int
+        val id: Int,
+        val name: String
     ) : AppScreen(), Parcelable
 
     @Parcelize

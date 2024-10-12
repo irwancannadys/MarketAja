@@ -18,11 +18,14 @@ imageLoader = "1.8.2"
 junit = "4.13.2"
 kotlin = "2.0.20"
 kotlinxCoroutinesCore = "1.9.0-RC.2"
-ktorClientCore = "3.0.0-beta-2"
+ktorClientCore = "3.0.0-wasm2"
 multiplatformSettingsNoArg = "1.1.1"
 jetbrainsKotlinJvm = "1.9.0"
 slf4jSimple = "2.0.16"
 activityKtx = "1.9.2"
+
+coil3 = "3.0.0-alpha06"
+ktor = "3.0.0-wasm2"
 
 [libraries]
 circuit-runtime = { module = "com.slack.circuit:circuit-runtime", version.ref = "circuitFoundation" }
@@ -54,6 +57,11 @@ multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", vers
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettingsNoArg" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
+coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil3" }
+coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil3" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
