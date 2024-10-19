@@ -79,10 +79,12 @@ fun App(
                             }
 
                             is AppScreen.Home -> HomeScreen()
-                            is AppScreen.Favorite -> FavoriteScreen()
                             is AppScreen.ProductList -> ProductScreen(
                                 screen.id, screen.name
                             )
+
+                            is AppScreen.Favorite -> FavoriteScreen()
+
 
                             is AppScreen.ProductDetail -> DetailProductScreen(
                                 screen.nameProduct

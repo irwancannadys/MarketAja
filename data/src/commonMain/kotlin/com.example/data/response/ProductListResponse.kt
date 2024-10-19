@@ -20,17 +20,19 @@ data class ProductListResponse(
         @SerialName("name")
         val name: String,
         @SerialName("sort_description")
-        val sortDescription: String,
+        val sortDescription: String = "",  // Default value
         @SerialName("category")
-        val category: Category,
+        val category: Category = Category(0, "", ""),  // Default value
         @SerialName("price")
         val price: Double,
         @SerialName("rating")
-        val rating: Double,
+        val rating: Double = 0.0,  // Default value
         @SerialName("discount")
-        val discount: Int,
+        val discount: Int = 0,  // Default value
         @SerialName("images")
-        val images: String
+        val images: String,
+        @SerialName("isFavorite")
+        val isFavorite: Boolean = false
     ) {
         @Serializable
         data class Category(

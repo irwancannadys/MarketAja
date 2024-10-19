@@ -17,10 +17,6 @@ class HomeViewModel(
         }
     }
 
-    init {
-        sendAction(HomeAction.GetCategory)
-    }
-
     private fun getCategory() = viewModelScope.launch {
         categoryRepository.getCategory().stateIn(this)
             .collectLatest {

@@ -26,6 +26,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
@@ -41,7 +42,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.LifecycleResumeEffect
+import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import com.example.core.navigation.LocalAppNavigator
 import com.example.core.service.onFailure
@@ -50,7 +52,6 @@ import com.example.core.service.onSuccess
 import com.example.core.utils.toRupiah
 import com.example.data.response.ProductListResponse
 import org.example.marketaja.di.viewModel
-import org.example.marketaja.home.section_content.LoadCategoryContent
 import org.example.marketaja.market_component.MarketButtonComponent
 
 
@@ -59,6 +60,8 @@ fun ProductScreen(
     idProduct: Int,
     name: String
 ) {
+
+    val navigation = LocalAppNavigator.current
 
     val viewModel by viewModel<ProductViewModel>()
     val state by viewModel.state.collectAsState()
@@ -70,16 +73,31 @@ fun ProductScreen(
 
     with(state.productResponseAsync) {
         onLoading {
-            CircularProgressIndicator(
-                modifier = Modifier.size(48.dp)
-            )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(48.dp)
+                )
+            }
         }
 
         onSuccess { data ->
-            LoadProductListContent(
-                name = name,
-                data = data
-            )
+            if (data.isNullOrEmpty()) {
+                // function composable
+            } else {
+                LoadProductListContent(
+                    name = name,
+                    data = data,
+                    viewModel = viewModel,
+                    state = state,
+                    clickFavorite = {
+                        navigation.navigateToFavorite()
+                    }
+                )
+            }
         }
 
         onFailure {
@@ -92,13 +110,19 @@ fun ProductScreen(
 @Composable
 fun LoadProductListContent(
     name: String,
-    data: List<ProductListResponse.Data>
+    data: List<ProductListResponse.Data>?,
+    viewModel: ProductViewModel,
+    state: ProductState,
+    clickFavorite: () -> Unit
 ) {
     val scrollState = rememberLazyGridState()
     Scaffold(
         topBar = {
             ToolbarProductList(
-                name = name
+                name = name,
+                clickFavorite = {
+                    clickFavorite.invoke()
+                }
             )
         }
     ) {
@@ -109,10 +133,14 @@ fun LoadProductListContent(
             state = scrollState,
             contentPadding = PaddingValues(16.dp)
         ) {
-            items(data.size) {
-                ProductListItem(
-                    item = data[it]
-                )
+            data?.size?.let { index ->
+                items(index) {
+                    ProductListItem(
+                        item = data[it],
+                        viewModel = viewModel,
+                        state = state
+                    )
+                }
             }
         }
     }
@@ -120,7 +148,9 @@ fun LoadProductListContent(
 
 @Composable
 fun ProductListItem(
-    item: ProductListResponse.Data
+    item: ProductListResponse.Data,
+    viewModel: ProductViewModel,
+    state: ProductState
 ) {
     Card(
         shape = RoundedCornerShape(15.dp),
@@ -137,7 +167,7 @@ fun ProductListItem(
 //                model = "https://raw.githubusercontent.com/utsmannn/utsmannn/master/images/Glassware%20Set/img-1.jpeg",
 //                contentDescription = null,
 //            )
-            
+
             SubcomposeAsyncImage(
                 modifier = Modifier.height(130.dp).padding(8.dp)
                     .align(Alignment.CenterHorizontally),
@@ -145,7 +175,8 @@ fun ProductListItem(
                 contentDescription = null,
                 loading = {
                     CircularProgressIndicator()
-                }
+                },
+
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -176,9 +207,29 @@ fun ProductListItem(
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth()
                     .padding(horizontal = 16.dp).heightIn(min = 40.dp),
-                onClick = { }
+                onClick = {
+                    if (item.isFavorite) {
+//                        viewModel.sendAction(ProductAction.SetFavoriteTextButton(false))
+                        viewModel.sendAction(ProductAction.RemoveFavorite(item.id))
+                    } else {
+//                        viewModel.sendAction(ProductAction.SetFavoriteTextButton(true))
+                        viewModel.sendAction(ProductAction.SetFavorite(item))
+                    }
+                }
             ) {
-                Text("Favorite")
+                if (item.isFavorite) {
+                    Text(
+                        "Remove Favorite", style = TextStyle(
+                            fontSize = 12.sp
+                        )
+                    )
+                } else {
+                    Text(
+                        "Add Favorite", style = TextStyle(
+                            fontSize = 12.sp
+                        )
+                    )
+                }
             }
         }
     }
@@ -186,11 +237,12 @@ fun ProductListItem(
 
 @Composable
 fun ToolbarProductList(
-    name: String
+    name: String,
+    clickFavorite: () -> Unit
 ) {
     val appNavigator = LocalAppNavigator.current
     Box(
-        modifier = Modifier.background(
+        modifier = Modifier.fillMaxWidth().background(
             color = Color.White,
             shape = CircleShape
         ).clickable {
@@ -198,24 +250,42 @@ fun ToolbarProductList(
         }
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    modifier = Modifier.padding(
+                        10.dp
+                    ).size(48.dp),
+                    imageVector = Icons.Rounded.KeyboardArrowLeft,
+                    contentDescription = null
+                )
+
+                Text(
+                    modifier = Modifier.padding(start = 4.dp),
+                    text = name,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                )
+            }
+
             Icon(
                 modifier = Modifier.padding(
                     10.dp
-                ).size(48.dp),
-                imageVector = Icons.Rounded.KeyboardArrowLeft,
+                ).size(32.dp)
+                    .clickable {
+                        clickFavorite.invoke()
+                    },
+                imageVector = Icons.Rounded.Favorite,
                 contentDescription = null
             )
 
-            Text(
-                modifier = Modifier.padding(start = 4.dp),
-                text = name,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            )
         }
     }
 }

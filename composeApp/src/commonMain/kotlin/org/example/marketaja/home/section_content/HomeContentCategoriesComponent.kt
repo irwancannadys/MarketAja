@@ -52,6 +52,10 @@ fun HomeContentCategoriesComponent() {
 
 //    viewModel.sendAction(HomeAction.GetCategory)
 
+    LaunchedEffect(Unit) {
+        viewModel.sendAction(HomeAction.GetCategory)
+    }
+
     with(state.categoryResponseAsync) {
         onLoading {
             CircularProgressIndicator()

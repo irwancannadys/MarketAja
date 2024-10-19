@@ -6,7 +6,7 @@ import org.example.marketaja.home.HomeViewModel
 object ProductModule {
     fun init() = with(InstancesManager) {
         install {
-            ProductViewModel(it.get())
+            ProductViewModel(it.get(), it.get())
         }
     }
 }
