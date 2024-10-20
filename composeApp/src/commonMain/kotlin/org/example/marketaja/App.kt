@@ -87,7 +87,7 @@ fun App(
 
 
                             is AppScreen.ProductDetail -> DetailProductScreen(
-                                screen.nameProduct
+                                screen.id
                             )
 
                             else -> Text("Route: ${screen::class.simpleName} not found!")

@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -50,15 +52,21 @@ fun HomeContentCategoriesComponent() {
     val state by viewModel.state.collectAsState()
     val navigationService = LocalAppNavigator.current
 
-//    viewModel.sendAction(HomeAction.GetCategory)
-
     LaunchedEffect(Unit) {
         viewModel.sendAction(HomeAction.GetCategory)
     }
 
     with(state.categoryResponseAsync) {
         onLoading {
-            CircularProgressIndicator()
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(48.dp)
+                )
+            }
         }
 
         onSuccess { data ->

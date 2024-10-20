@@ -95,6 +95,9 @@ fun ProductScreen(
                     state = state,
                     clickFavorite = {
                         navigation.navigateToFavorite()
+                    },
+                    onClickDetailProduct = { id ->
+                        navigation.navigateToProductDetail(id)
                     }
                 )
             }
@@ -113,7 +116,8 @@ fun LoadProductListContent(
     data: List<ProductListResponse.Data>?,
     viewModel: ProductViewModel,
     state: ProductState,
-    clickFavorite: () -> Unit
+    clickFavorite: () -> Unit,
+    onClickDetailProduct: (Int) -> Unit
 ) {
     val scrollState = rememberLazyGridState()
     Scaffold(
@@ -138,7 +142,10 @@ fun LoadProductListContent(
                     ProductListItem(
                         item = data[it],
                         viewModel = viewModel,
-                        state = state
+                        state = state,
+                        onClickDetailProduct = { id ->
+                            onClickDetailProduct.invoke(id)
+                        }
                     )
                 }
             }
@@ -150,23 +157,20 @@ fun LoadProductListContent(
 fun ProductListItem(
     item: ProductListResponse.Data,
     viewModel: ProductViewModel,
-    state: ProductState
+    state: ProductState,
+    onClickDetailProduct: (Int) -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(15.dp),
-        modifier = Modifier.padding(8.dp).fillMaxWidth(),
+        modifier = Modifier.padding(8.dp).fillMaxWidth().clickable {
+            onClickDetailProduct.invoke(item.id)
+        },
         elevation = 2.dp
     ) {
         Column(
             modifier = Modifier.fillMaxWidth().padding(10.dp),
             verticalArrangement = Arrangement.Center,
         ) {
-//            AsyncImage(
-//                modifier = Modifier.height(130.dp).padding(8.dp)
-//                    .align(Alignment.CenterHorizontally),
-//                model = "https://raw.githubusercontent.com/utsmannn/utsmannn/master/images/Glassware%20Set/img-1.jpeg",
-//                contentDescription = null,
-//            )
 
             SubcomposeAsyncImage(
                 modifier = Modifier.height(130.dp).padding(8.dp)

@@ -1,6 +1,7 @@
 package com.example.data
 
 import com.example.data.repository.CategoryRepository
+import com.example.data.repository.DetailProductRepository
 import com.example.data.repository.FavoriteRepository
 import com.example.data.repository.LoginRepository
 import com.example.data.repository.ProductListRepository
@@ -13,5 +14,6 @@ object DataModule {
         install { CategoryRepository(it.get()) }
         install { ProductListRepository(it.get()) }
         install { FavoriteRepository(it.get()) }
+        install { DetailProductRepository(it.get()) }
     }
 }

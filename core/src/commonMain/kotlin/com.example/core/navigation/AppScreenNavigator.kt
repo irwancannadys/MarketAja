@@ -11,7 +11,7 @@ interface AppScreenNavigator {
 
     fun navigateToFavorite()
 
-    fun navigateToProductDetail(name: String)
+    fun navigateToProductDetail(id: Int)
 
     fun navigateToProductList(id: Int, name: String)
 
