@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -79,18 +81,14 @@ fun LoadContentDetail(
     Scaffold(
         topBar = { ToolBarDetailProduct(data?.name ?: "") }
     ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().background(color = Color.Gray)
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .background(color = Color.Gray)
         ) {
-            item {
-                ImageSlider(
-                    data?.images ?: listOf()
-                )
-            }
-
-            item {
-                ContentDetailProduct(data)
-            }
+            ImageSlider(data?.images ?: listOf())
+            ContentDetailProduct(data)
         }
     }
 }
@@ -100,7 +98,7 @@ fun ContentDetailProduct(
     data: DetailProductResponse.Data?
 ) {
     Column(
-        modifier = Modifier.fillMaxHeight().fillMaxWidth().background(
+        modifier = Modifier.fillMaxSize().background(
             color = Color.White,
             shape = RoundedCornerShape(
                 topStart = 16.dp,
@@ -108,6 +106,136 @@ fun ContentDetailProduct(
             )
         )
     ) {
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
+        Text(
+            modifier = Modifier.padding(16.dp),
+            text = data?.name ?: "",
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        )
+
+        MarketButtonComponent(
+            buttonText = "Add to Cart"
+        ) {  }
+
         Text(
             modifier = Modifier.padding(16.dp),
             text = data?.name ?: "",
