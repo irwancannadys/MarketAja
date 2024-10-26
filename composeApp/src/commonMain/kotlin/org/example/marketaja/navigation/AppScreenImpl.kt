@@ -26,4 +26,8 @@ class AppScreenImpl(
     override fun navigateToProductList(id: Int, name: String) {
         navigator.goTo(AppScreen.ProductList(id, name))
     }
+
+    override fun navigateToShoppingCart() {
+        navigator.goTo(AppScreen.ShoppingCart)
+    }
 }

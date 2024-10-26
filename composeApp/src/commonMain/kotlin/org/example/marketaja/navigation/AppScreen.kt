@@ -17,6 +17,9 @@ sealed class AppScreen : Screen, Parcelable {
     data object Favorite: AppScreen(), Parcelable
 
     @Parcelize
+    data object ShoppingCart: AppScreen(), Parcelable
+
+    @Parcelize
     data class ProductList(
         val id: Int,
         val name: String

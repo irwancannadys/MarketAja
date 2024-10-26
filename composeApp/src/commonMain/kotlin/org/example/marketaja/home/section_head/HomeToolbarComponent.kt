@@ -28,7 +28,9 @@ import com.example.core.navigation.LocalAppNavigator
 
 
 @Composable
-fun HomeToolbarComponent() {
+fun HomeToolbarComponent(
+    onClickShoppingCart: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,19 +38,27 @@ fun HomeToolbarComponent() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        HomeDiscountComponent() // coordinate dimulai start
+        HomeDiscountComponent(
+            onClickShoppingCart = {
+                onClickShoppingCart.invoke()
+            }
+        ) // coordinate dimulai start
         HomeAddressUserComponent() // coordinate dimulai base content position
         HomeNotificationComponent() // coordinate dimulai end
     }
 }
 
 @Composable
-private fun HomeDiscountComponent() {
+private fun HomeDiscountComponent(
+    onClickShoppingCart: () -> Unit
+) {
     Box(
         modifier = Modifier.background(
             color = Color(0xFFebf5f4),
             shape = CircleShape
-        )
+        ).clickable {
+            onClickShoppingCart.invoke()
+        }
     ) {
         Icon(
             modifier = Modifier.padding(

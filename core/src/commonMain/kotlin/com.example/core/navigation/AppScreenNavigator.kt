@@ -15,6 +15,8 @@ interface AppScreenNavigator {
 
     fun navigateToProductList(id: Int, name: String)
 
+    fun navigateToShoppingCart()
+
 }
 
 val LocalAppNavigator = staticCompositionLocalOf<AppScreenNavigator> { error("app navigator not provided!") }

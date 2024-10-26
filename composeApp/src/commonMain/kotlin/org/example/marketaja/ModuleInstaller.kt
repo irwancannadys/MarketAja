@@ -8,6 +8,7 @@ import org.example.marketaja.favorite.FavoriteModule
 import org.example.marketaja.home.HomeModule
 import org.example.marketaja.login.LoginModule
 import org.example.marketaja.product.ProductModule
+import shopping_cart.ShoppingCartModule
 
 object ModuleInstaller {
 
@@ -17,6 +18,7 @@ object ModuleInstaller {
         ProductModule.init()
         FavoriteModule.init()
         DetailProductModule.init()
+        ShoppingCartModule.init()
         DataModule.init()
         ServiceModule.init()
         SharedResultModule.init()

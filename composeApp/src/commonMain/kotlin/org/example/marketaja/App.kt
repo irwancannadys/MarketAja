@@ -33,6 +33,7 @@ import org.example.marketaja.login.LoginScreen
 import org.example.marketaja.navigation.AppScreen
 import org.example.marketaja.navigation.AppScreenImpl
 import org.example.marketaja.product.ProductScreen
+import shopping_cart.ShoppingCartScreen
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
@@ -89,6 +90,8 @@ fun App(
                             is AppScreen.ProductDetail -> DetailProductScreen(
                                 screen.id
                             )
+
+                            is AppScreen.ShoppingCart -> ShoppingCartScreen()
 
                             else -> Text("Route: ${screen::class.simpleName} not found!")
                         }
