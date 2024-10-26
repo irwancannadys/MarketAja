@@ -15,12 +15,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MarketButtonComponent(
+    modifier: Modifier = Modifier,
     buttonText: String = "Button",
     onClickButton: () -> Unit = {}
 ) {
     Button(
-        modifier = Modifier.fillMaxWidth()
-            .padding(horizontal = 16.dp).height(45.dp),
+        modifier = modifier.fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 16.dp).height(45.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Green),
         onClick = {

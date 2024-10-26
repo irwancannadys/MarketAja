@@ -3,20 +3,21 @@ package org.example.marketaja.detail_product
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -83,12 +84,30 @@ fun LoadContentDetail(
     ) {
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .background(color = Color.Gray)
+                .background(color = Color.LightGray),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            ImageSlider(data?.images ?: listOf())
-            ContentDetailProduct(data)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                ImageSlider(data?.images ?: listOf())
+                ContentDetailProduct(data)
+            }
+
+            Box(
+                modifier = Modifier.fillMaxWidth().background(Color.White)
+            ){
+                MarketButtonComponent(
+                    buttonText = "Add To Cart"
+                ) {
+
+                }
+            }
+
         }
     }
 }
@@ -104,150 +123,16 @@ fun ContentDetailProduct(
                 topStart = 16.dp,
                 topEnd = 16.dp
             )
-        )
+        ),
     ) {
         Text(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(16.dp).fillMaxWidth(),
             text = data?.name ?: "",
             style = TextStyle(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
         )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
-
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = data?.name ?: "",
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        MarketButtonComponent(
-            buttonText = "Add to Cart"
-        ) {  }
     }
 }
 
@@ -273,7 +158,7 @@ fun ImageSliderItem(
     url: String
 ) {
     SubcomposeAsyncImage(
-        modifier = Modifier.fillMaxWidth().height(180.dp),
+        modifier = Modifier.fillMaxWidth().height(220.dp).background(Color.LightGray),
         model = url,
         contentDescription = null,
         contentScale = ContentScale.Crop
